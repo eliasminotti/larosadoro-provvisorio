@@ -1,0 +1,244 @@
+/* Orizzonti Celesti — versione di lavoro della struttura.
+   Impianto: colonna di lettura centrale, intestazione con simbolo e menu,
+   piè di pagina con i dati dell'ente su ogni pagina.
+   La grafica definitiva si sceglie dopo, fra i prototipi. */
+
+:root {
+  --sfondo: #F7F8F5;
+  --superficie: #FFFFFF;
+  --testo: #1E2340;
+  --testo-tenue: #50576F;
+  --oro: #A8930A;
+  --oro-testo: #7A6A06;
+  --celeste: #4F7398;
+  --luce: #FFF7B8;
+  --bordo: #DCDFD6;
+  --da-fare: #8A5A00;
+  --da-fare-sfondo: #FFF6DA;
+
+  --font-titoli: "Marcellus", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-testo: "Alegreya Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --larghezza: 68rem;
+  --colonna: 40rem;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sfondo: #12152A;
+    --superficie: #1A1E37;
+    --testo: #ECEBDD;
+    --testo-tenue: #AEB2C6;
+    --oro: #D9C24A;
+    --oro-testo: #E6D063;
+    --celeste: #93B3D8;
+    --luce: #3A3720;
+    --bordo: #2E3354;
+    --da-fare: #F2C66B;
+    --da-fare-sfondo: #2E2817;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --sfondo: #12152A;
+  --superficie: #1A1E37;
+  --testo: #ECEBDD;
+  --testo-tenue: #AEB2C6;
+  --oro: #D9C24A;
+  --oro-testo: #E6D063;
+  --celeste: #93B3D8;
+  --luce: #3A3720;
+  --bordo: #2E3354;
+  --da-fare: #F2C66B;
+  --da-fare-sfondo: #2E2817;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--sfondo);
+  color: var(--testo);
+  font-family: var(--font-testo);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; }
+
+a { color: var(--celeste); text-underline-offset: 0.18em; }
+a:hover { color: var(--oro-testo); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; border-radius: 2px; }
+
+h1, h2, h3 {
+  font-family: var(--font-titoli);
+  font-weight: 400;
+  line-height: 1.2;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: 0.01em; }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.1rem); }
+h3 { font-size: 1.3rem; }
+
+p { margin: 0; }
+
+.contenitore {
+  width: 100%;
+  max-width: var(--larghezza);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* Intestazione */
+.testata {
+  border-bottom: 1px solid var(--bordo);
+  background: var(--superficie);
+}
+.testata .contenitore {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-block: 0.9rem;
+}
+.marchio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--testo);
+  text-decoration: none;
+}
+.marchio img { width: 3rem; height: 3rem; }
+.marchio span { display: grid; line-height: 1.15; }
+.marchio strong { font-family: var(--font-titoli); font-weight: 400; font-size: 1.35rem; }
+.marchio small { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--testo-tenue); }
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+.menu a {
+  color: var(--testo);
+  text-decoration: none;
+  font-size: 1rem;
+  padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+.menu a:hover { color: var(--oro-testo); }
+.menu a[aria-current="page"] { border-bottom-color: var(--oro); }
+
+/* Nota di lavoro (solo nella versione di prova) */
+.nota-lavoro {
+  background: var(--luce);
+  color: var(--testo);
+  font-size: 0.95rem;
+}
+.nota-lavoro .contenitore { padding-block: 0.6rem; }
+
+/* Apertura di pagina */
+.apertura {
+  padding-block: 3.5rem 2.5rem;
+}
+.apertura .contenitore {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 52rem) {
+  .apertura.con-simbolo .contenitore { grid-template-columns: 1fr 15rem; }
+}
+.apertura .simbolo { width: 15rem; max-width: 60vw; justify-self: center; }
+.occhiello {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--oro-testo);
+  margin-bottom: 0.75rem;
+}
+.apertura .introduzione { display: grid; gap: 1rem; max-width: var(--colonna); }
+.apertura .guida { font-size: 1.3rem; color: var(--testo); }
+.apertura .sotto { color: var(--testo-tenue); }
+
+/* Sezioni */
+.sezione { padding-block: 2.5rem; border-top: 1px solid var(--bordo); }
+.sezione .contenitore { display: grid; gap: 1.25rem; }
+.sezione .testo { display: grid; gap: 1rem; max-width: var(--colonna); }
+
+.ambiti {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+.ambiti li { display: grid; gap: 0.4rem; align-content: start; min-width: 0; }
+.ambiti li::before {
+  content: "";
+  width: 2.5rem;
+  height: 2px;
+  background: var(--oro);
+  margin-bottom: 0.5rem;
+}
+.ambiti p { color: var(--testo-tenue); }
+
+.elenco { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.5rem; max-width: var(--colonna); }
+
+.dati {
+  display: grid;
+  grid-template-columns: minmax(8rem, max-content) 1fr;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  max-width: var(--colonna);
+}
+.dati dt { color: var(--testo-tenue); }
+.dati dd { margin: 0; min-width: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+@media (max-width: 30rem) {
+  .dati { grid-template-columns: 1fr; gap: 0.1rem; }
+  .dati dd { margin-bottom: 0.6rem; }
+}
+
+.collegamento { font-weight: 500; }
+
+/* Parti da completare: visibili nella versione di lavoro */
+.da-completare {
+  border: 1px dashed var(--da-fare);
+  background: var(--da-fare-sfondo);
+  color: var(--testo);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  max-width: var(--colonna);
+  font-size: 1rem;
+}
+.da-completare strong { color: var(--da-fare); font-weight: 600; }
+
+/* Piè di pagina */
+.piede {
+  margin-top: 2rem;
+  border-top: 1px solid var(--bordo);
+  background: var(--superficie);
+  color: var(--testo-tenue);
+  font-size: 0.95rem;
+}
+.piede .contenitore {
+  display: grid;
+  gap: 1.5rem 3rem;
+  padding-block: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+.piede h2 { font-size: 1.1rem; color: var(--testo); margin-bottom: 0.4rem; }
+.piede p { line-height: 1.5; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .menu a { transition: color 0.15s ease, border-color 0.15s ease; }
+}
